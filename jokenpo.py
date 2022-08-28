@@ -6,36 +6,55 @@
 import random
 from time import sleep
 
-
-
 def pedra():
-    print("template desenho da pedra")
+    print("""
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+""")
 
 def papel():
-    print("template desenho do papel")
+    print("""
+     _______
+---'    ____)____
+           ______)
+          _______)
+         _______)
+---.__________)
+""")
 
 def tesoura():
-    print("template desenho da tesoura")
+    print("""
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+""")
 
-def vitoriaplayer():
-     
+def vitoriaplayer(): 
+    global ptplayer
+    global ptbot # faz com que as variaveis mudem de valor, existindo em escopo global
     print(f"brabo {nome} voce ganhou dessa vez")
-    pontoplayer = ptplayer 
-    print(f"pontuação do jogo {pontoplayer} pro {nome} e {pontobot} pro bot")
-    return pontoplayer
+    ptplayer += 1
+    print(f"pontuação do jogo {ptplayer} pro {nome} e {ptbot} pro bot")
+    
 
 def vitoriabot():
-     
+    global ptplayer
+    global ptbot # faz com que as variaveis mudem de valor, existindo em escopo global
     print("bot ganhou")
-    pontobot = ptbot 
-    print(f"pontuação do jogo {pontoplayer} pro {nome} e {pontobot} pro bot")
-    return pontobot
+    ptbot += 1
+    print(f"pontuação do jogo {ptplayer} pro {nome} e {ptbot} pro bot")
+    
 
 def jogo():
     global ptplayer
     global ptbot
-    global pontobot
-    global pontoplayer
     # 0 pedra 1 papel 2 tesoura
     
     player = int(input(f"eae {nome}! vai jogar pedra(0) papel(1) ou tesoura (2): "))
@@ -43,62 +62,74 @@ def jogo():
 
     if player == bot:
         print("empatou!")
-        print(f"pontuação do jogo {pontoplayer} pro {nome} e {pontobot} pro bot")
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        print(f"pontuação do jogo {ptplayer} pro {nome} e {ptbot} pro bot")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
 # player joga pedra
 
     elif player == 0 and bot == 1:
         pedra()
+        sleep(1)
         papel()
-        ptbot += 1
+        sleep(0.5)
         vitoriabot()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
     elif player == 0 and bot == 2:
         pedra()
+        sleep(1)
         tesoura()
-        ptplayer += 1
+        sleep(0.5)
         vitoriaplayer()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
 # player joga papel
 
     elif player == 1 and bot == 0:
         papel()
+        sleep(1)
         pedra()
-        ptplayer += 1
+        sleep(0.5)
         vitoriaplayer()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
     
     elif player == 1 and bot == 2:
         papel()
+        sleep(1)
         tesoura()
-        ptbot += 1
+        sleep(0.5)
         vitoriabot()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
 # player joga tesoura
 
-    elif player == 2 and bot == 0:
-        ptbot += 1
+    elif player == 2 and bot == 0:        
+        tesoura()
+        sleep(1)
+        pedra()
+        sleep(0.5)
         vitoriabot()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
     elif player == 2 and bot == 1:
-        ptbot +=1
+        tesoura()
+        sleep(1)
+        papel()
+        sleep(0.5)
         vitoriaplayer()
-        jogar = input("vai querer continuar jogando? digite 1 se sim: ")
-    return jogar
+        jogar = int(input("vai querer continuar jogando? digite 1 se sim: "))
 
-nome = input("digite seu nome: ")
+
+
 jogar = int(input("Voce quer jogar? digite 1 se quiser: "))
-pontobot = 0
-pontoplayer = 0
+
+if jogar ==1:
+    nome = input("digite seu nome: ")
+
 ptbot = 0
 ptplayer = 0
 
 while jogar == 1:
     jogo()
-if jogar < 1 or jogar >1:
+if not jogar  == 1:
     print("jogaremos outra vez")
